@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from 'passport'
 import userRouter from './userRouter'
-import eventRouter from './eventRouter'
+import offerRouter from './offerRouter'
 import orgRouter from './orgRouter'
 import ticketRouter from './ticketRouter'
 
@@ -12,7 +12,7 @@ privateRouter.use(passport.authenticate('jwt', { session: false }))
 
 // routes
 privateRouter.use('/user', userRouter)
-privateRouter.use('/event', eventRouter)
+privateRouter.use('/offer', offerRouter)
 privateRouter.use('/org', orgRouter)
 privateRouter.use('/ticket', ticketRouter)
 

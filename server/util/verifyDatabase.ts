@@ -1,6 +1,6 @@
 import Org from '../models/Org'
-import Event from '../models/Event'
-import { IEventDate } from '../types/event.type'
+import Event from '../models/Offer'
+import { IEventDate } from '../types/offer.type'
 import { formatLocation } from './scrapeCampusGroups'
 
 const verifyDatabase = async () => {

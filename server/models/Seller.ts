@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose'
 import { ISellerDocument } from '../types/seller.type'
-import Event from './Event'
+import Event from './Offer'
 
 const sellerSchema = new Schema(
   {

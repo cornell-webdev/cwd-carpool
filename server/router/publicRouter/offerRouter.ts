@@ -1,79 +1,79 @@
 import express from 'express'
-import Event from '../../models/Event'
+import Offer from '../../models/Offer'
 import endOfDay from 'date-fns/endOfDay'
 import startOfDay from 'date-fns/startOfDay'
-import Org from '../../models/Org'
-import { IEvent } from '../../types/event.type'
+import User from '../../models/User'
+import { IOffer } from '../../types/offer.type'
 import sendTicketEmail from '../../util/email/sendTicketEmail'
 
-const eventRouter = express.Router()
+const offerRouter = express.Router()
 
-eventRouter.get('/trending', async (req, res) => {
-  try {
-    const docs = await Event.find({
-      dates: {
-        $elemMatch: {
-          date: {
-            $gte: startOfDay(new Date()),
-          },
-        },
-      },
-    })
-      .sort({ likedUserIds: -1 })
-      .limit(10)
-    res.send(docs)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
+// offerRouter.get('/trending', async (req, res) => {
+//   try {
+//     const docs = await Event.find({
+//       dates: {
+//         $elemMatch: {
+//           date: {
+//             $gte: startOfDay(new Date()),
+//           },
+//         },
+//       },
+//     })
+//       .sort({ likedUserIds: -1 })
+//       .limit(10)
+//     res.send(docs)
+//   } catch (e) {
+//     res.status(500).send(e)
+//   }
+// })
 
-eventRouter.get('/search', async (req, res) => {
+offerRouter.get('/search', async (req, res) => {
   try {
     if (!req.query?.query || req.query.query === '') {
       res.send([])
     } else {
-      const orgs = await Org.find({
+      const users = await User.find({
         name: { $regex: req.query.query as string, $options: 'i' },
       })
-      const uniqueEvents: IEvent[] = []
-      const eventIds: { [id: string]: boolean } = {}
-      const orgPromises = orgs.map(async (org) => {
-        const events = await Event.find({ orgId: org?._id })
-        events?.forEach((event) => {
-          eventIds[event?._id.toString()] = true
-          uniqueEvents.push(event)
+      const uniqueOffers: IOffer[] = []
+      const offerIds: { [id: string]: boolean } = {}
+      const userPromises = users.map(async (user) => {
+        const offers = await Offer.find({ userId: user?._id })
+        offers?.forEach((offer) => {
+          offerIds[offer?._id.toString()] = true
+          uniqueOffers.push(offer)
         })
       })
-      await Promise.all(orgPromises)
-      const events = await Event.find({
+      await Promise.all(userPromises)
+      const offers = await Offer.find({
         $or: [
           // { details: { $regex: req.query.query as string, $options: 'i' } },
           { title: { $regex: req.query.query as string, $options: 'i' } },
           { location: { $regex: req.query.query as string, $options: 'i' } },
         ],
       })
-      events.forEach((event) => {
-        if (!eventIds[event?._id.toString()]) {
-          uniqueEvents.push(event)
+      offers.forEach((offer) => {
+        if (!offerIds[offer?._id.toString()]) {
+          uniqueOffers.push(offer)
         }
       })
-      res.send(uniqueEvents)
+      res.send(uniqueOffers)
     }
   } catch (e) {
     res.status(500).send(e)
   }
 })
 
-eventRouter.get('/:id', async (req, res) => {
+offerRouter.get('/:id', async (req, res) => {
   try {
-    const doc = await Event.findById(req.params.id)
+    const doc = await Offer.findById(req.params.id)
     res.send(doc)
   } catch (e) {
     res.status(500).send(e)
   }
 })
 
-eventRouter.get('/', async (req, res) => {
+offerRouter.get('/', async (req, res) => {
   try {
     const dateQuery = req.query.date
       ? {
@@ -100,7 +100,7 @@ eventRouter.get('/', async (req, res) => {
       ...tagQuery,
     }
 
-    const docs = await Event.find(query).sort({ isTicketed: -1 })
+    const docs = await Offer.find(query).sort({ isTicketed: -1 })
     res.send(docs)
   } catch (e) {
     res.status(500).send(e)

@@ -1,11 +1,11 @@
 import Org from '../models/Org'
 import Log from '../models/Log'
 import Tag from '../models/Tag'
-import Event from '../models/Event'
+import Event from '../models/Offer'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import { IOrg } from '../types/org.type'
-import { IEvent, IEventDate } from '../types/event.type'
+import { IEvent, IEventDate } from '../types/offer.type'
 import { CronJob } from 'cron'
 import verifyDatabase from './verifyDatabase'
 

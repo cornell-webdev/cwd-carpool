@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose'
 import { ITicketDocument } from '../types/ticket.type'
 import User from './User'
-import Event from './Event'
+import Event from './Offer'
 import Seller from './Seller'
 
 const ticketSchema = new Schema(

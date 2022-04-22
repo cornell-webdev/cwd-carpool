@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose'
 import autopopulate from 'mongoose-autopopulate'
 import { IUserDocument } from '../types/user.type'
+import Offer from './Offer'
 
 const userSchema = new Schema(
   {
@@ -11,6 +12,14 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+    },
+    offerIds: {
+      type: [String],
+      default: [],
+    },
+    requestIds: {
+      type: [String],
+      default: [],
     },
     authProvider: {
       // 'google'
@@ -25,6 +34,14 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 )
+
+userSchema.virtual('Offers', {
+  ref: Offer,
+  localField: 'OfferIds',
+  foreignField: '_id',
+  justOne: false,
+  autopopulate: true,
+})
 
 userSchema.plugin(autopopulate)
 

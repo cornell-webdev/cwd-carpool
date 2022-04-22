@@ -1,5 +1,5 @@
 import express from 'express'
-import Event from '../../models/Event'
+import Event from '../../models/Offer'
 import Ticket from '../../models/Ticket'
 import sendTicketEmail from './../../util/email/sendTicketEmail'
 

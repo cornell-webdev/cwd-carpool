@@ -1,10 +1,10 @@
 import express from 'express'
 import authRouter from './authRouter'
-import eventRouter from './eventRouter'
+import offerRouter from './offerRouter'
 
 const publicRouter = express.Router()
 
 publicRouter.use('/auth', authRouter)
-publicRouter.use('/event', eventRouter)
+publicRouter.use('/offer', offerRouter)
 
 export default publicRouter
