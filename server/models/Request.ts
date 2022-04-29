@@ -1,15 +1,11 @@
 import { model, Schema } from 'mongoose'
-import { IOfferDocument } from '../types/offer.type'
+import { IRequestDocument } from '../types/request.type'
 import User from './User'
 
 const offerSchema = new Schema(
   {
     userId: {
       type: String,
-    },
-    title: {
-      type: String,
-      required: true,
     },
     location: {
       type: [String],
@@ -27,17 +23,17 @@ const offerSchema = new Schema(
       type: [
         {
           date: {
-            type: Date,
+            type: [Date],
             required: true,
           },
           startTime: {
-            type: String,
+            type: [String],
             required: true,
             minlength: 4,
             maxlength: 4,
           },
           endTime: {
-            type: String,
+            type: [String],
             required: true,
             minlength: 4,
             maxlength: 4,
@@ -46,10 +42,14 @@ const offerSchema = new Schema(
       ],
       required: true,
     },
-    expCompensation: {
-      type: String,
-      default: ''
+    Compensation: {
+        type: String,
+        default: ''
     },
+    numPeople: {
+        type: Number,
+        default: 1,
+      },
     details: {
       type: String,
       default: '',
@@ -58,13 +58,10 @@ const offerSchema = new Schema(
       type: Number,
       default: 0,
     },
-    attendUserIds: {
-      type: [String],
-      default: [],
-    },
-    numSpots: {
-      type: Number,
-      required: true,
+    rideFound: {
+        type: Boolean,
+        default: false,
+        required: true,
     }
   },
   {

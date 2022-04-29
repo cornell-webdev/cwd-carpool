@@ -10,13 +10,14 @@ export interface IRideDate {
 
 export interface IOffer {
   userId?: string
-  title: string
-  location: string
-  destination: string
+  location: string[]
+  destination: string[]
+  isRoundTrip: Boolean
   dates: IRideDate[]
+  expCompensation: String
   details: string
-  imgs: string[]
   views: number
   AttendUserIds: string[]
+  numSpots: number
   checkInInstructions?: string
 }
