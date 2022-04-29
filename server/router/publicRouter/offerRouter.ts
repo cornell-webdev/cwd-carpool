@@ -107,9 +107,9 @@ offerRouter.get('/', async (req, res) => {
   }
 })
 
-eventRouter.put('/:id', async (req, res) => {
+offerRouter.put('/:id', async (req, res) => {
   try {
-    const doc = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    const doc = await Offer.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     })
     res.send(doc)
@@ -118,20 +118,20 @@ eventRouter.put('/:id', async (req, res) => {
   }
 })
 
-eventRouter.delete('/', async (req, res) => {
+offerRouter.delete('/', async (req, res) => {
   try {
-    const result = await Event.findByIdAndDelete(req.body)
+    const result = await Offer.findByIdAndDelete(req.body)
     res.send(result)
   } catch (e) {
     res.status(500).send(e)
   }
 })
 
-eventRouter.post('/increment-views', async (req, res) => {
+offerRouter.post('/increment-views', async (req, res) => {
   try {
-    const event = await Event.findById(req.body._id)
+    const event = await Offer.findById(req.body._id)
     if (event) {
-      const doc = await Event.findByIdAndUpdate(
+      const doc = await Offer.findByIdAndUpdate(
         req.body._id,
         { views: event.views + 1 },
         {
@@ -147,4 +147,4 @@ eventRouter.post('/increment-views', async (req, res) => {
   }
 })
 
-export default eventRouter
+export default offerRouter

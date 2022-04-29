@@ -43,6 +43,14 @@ userSchema.virtual('Offers', {
   autopopulate: true,
 })
 
+userSchema.virtual('Requests', {
+  ref: Offer,
+  localField: 'RequestIds',
+  foreignField: '_id',
+  justOne: false,
+  autopopulate: true,
+})
+
 userSchema.plugin(autopopulate)
 
 export default model<IUserDocument>('User', userSchema)
