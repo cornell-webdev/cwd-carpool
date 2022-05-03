@@ -6,28 +6,9 @@ import User from '../../models/User'
 import { IOffer } from '../../types/offer.type'
 import sendTicketEmail from '../../util/email/sendTicketEmail'
 
-const offerRouter = express.Router()
+const requestRouter = express.Router()
 
-// offerRouter.get('/trending', async (req, res) => {
-//   try {
-//     const docs = await Event.find({
-//       dates: {
-//         $elemMatch: {
-//           date: {
-//             $gte: startOfDay(new Date()),
-//           },
-//         },
-//       },
-//     })
-//       .sort({ likedUserIds: -1 })
-//       .limit(10)
-//     res.send(docs)
-//   } catch (e) {
-//     res.status(500).send(e)
-//   }
-// })
-
-offerRouter.get('/search', async (req, res) => {
+requestRouter.get('/search', async (req, res) => {
   try {
     if (!req.query?.query || req.query.query === '') {
       res.send([])
@@ -64,7 +45,7 @@ offerRouter.get('/search', async (req, res) => {
   }
 })
 
-offerRouter.get('/:id', async (req, res) => {
+requestRouter.get('/:id', async (req, res) => {
   try {
     const doc = await Offer.findById(req.params.id)
     res.send(doc)
@@ -73,7 +54,7 @@ offerRouter.get('/:id', async (req, res) => {
   }
 })
 
-offerRouter.get('/', async (req, res) => {
+requestRouter.get('/', async (req, res) => {
   try {
     const dateQuery = req.query.date
       ? {
@@ -107,4 +88,4 @@ offerRouter.get('/', async (req, res) => {
   }
 })
 
-export default offerRouter
+export default requestRouter
