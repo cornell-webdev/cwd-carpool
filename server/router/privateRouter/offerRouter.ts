@@ -2,25 +2,6 @@ import express from 'express'
 import Offer from '../../models/Offer'
 
 const offerRouter = express.Router()
-offerRouter.post('/toggle-like', async (req, res) => {
-  try {
-    const offer = await Offer.findById(req?.body?._id)
-    const targetId = req?.user?._id.toString()
-
-    if (offer) {
-      if (offer.likedUserIds.includes(targetId)) {
-        offer.likedUserIds = offer.likedUserIds.filter((id) => id !== targetId)
-        await offer.save()
-      } else {
-        offer.likedUserIds = [...offer.likedUserIds, targetId]
-        await offer.save()
-      }
-    }
-    res.send(offer)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
 
 offerRouter.post('/', async (req, res) => {
   try {

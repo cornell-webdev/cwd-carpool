@@ -15,7 +15,7 @@ const offerSchema = new Schema(
       type: [String],
       required: true,
     },
-    isRoundTrip:{
+    isRoundTrip: {
       type: Boolean,
       required: true,
     },
@@ -43,13 +43,13 @@ const offerSchema = new Schema(
       required: true,
     },
     Compensation: {
-        type: String,
-        default: ''
+      type: String,
+      default: '',
     },
     numPeople: {
-        type: Number,
-        default: 1,
-      },
+      type: Number,
+      default: 1,
+    },
     details: {
       type: String,
       default: '',
@@ -59,10 +59,10 @@ const offerSchema = new Schema(
       default: 0,
     },
     rideFound: {
-        type: Boolean,
-        default: false,
-        required: true,
-    }
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -89,4 +89,4 @@ offerSchema.virtual('user', {
 
 offerSchema.plugin(require('mongoose-autopopulate'))
 
-export default model<IOfferDocument>('Offer', offerSchema)
+export default model<IRequestDocument>('Offer', offerSchema)

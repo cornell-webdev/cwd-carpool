@@ -23,7 +23,8 @@
     "nodemailer": "^6.7.2",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "typescript": "^4.6.4"
   },
   "scripts": {
     "dev": "ts-node-dev --debounce --respawn --transpile-only app.ts",
